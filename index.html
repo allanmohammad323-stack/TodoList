@@ -9,20 +9,29 @@
 </head>
 <body>
 
-    <div class="welcomeAnimation" id="welcomeAnimation">
-        
-        
-    </div>
-
+    
     <div class="container" id="container">
-       <textarea id="task"> 
+        <div class="welcomeAnimation" id="welcomeAnimation"></div>
+    <div id="count" class="count">
+        <div>
+            All Todo number : <span id="allTodoNumber">0</span>
+        </div>
+        <div>
+            Done Todo : <span id="doneTodo">0</span>
+        </div>
+        <div>
+            Undone Todo : <span id="undoneTodo">0</span>
+        </div>
+    </div>
+    <div class="search"><textarea id="search" placeholder="search here..."></textarea></div>
+       <textarea id="task" placeholder="a"> 
     </textarea>
         <button id="addTodo" class="addTodo">Add Todo</button>
         <button id="Filter" class="addTodo">Filter</button>
+        
+        <div class="todoList" id="todoList"></div>
+        
     </div>
-   
-    <div class="todoList" id="todoList"></div>
-
     <script src="script.js"></script>
 </body>
 </html>

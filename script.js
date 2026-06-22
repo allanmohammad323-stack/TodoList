@@ -4,21 +4,23 @@ container=document.querySelector('#container'),
 addTodo =document.querySelector('#addTodo'),
 todoList=document.querySelector('#todoList'),
 task=document.querySelector('#task');
+let todoCount=0,doneCount=0,undoneCount=0;
 
 addTodo.onclick=function()
 {
-if(task.value.trim()==="")
-{
-    alert("empty task");
-}
-else
-{
-    const todo=document.createElement('div'),
-    closeBtn=document.createElement('button'),
-    doneBtn=document.createElement('button'),
-    editBtn=document.createElement('button');
-
-    todo.textContent=task.value;
+    if(task.value.trim()==="")
+        {
+            alert("empty task");
+        }
+        else
+            {
+                todoCount++;   
+                const todo=document.createElement('div'),
+                closeBtn=document.createElement('button'),
+                doneBtn=document.createElement('button'),
+                editBtn=document.createElement('button');
+                
+                todo.textContent=task.value;
     closeBtn.textContent='X';
     doneBtn.textContent='Done';
     editBtn.textContent='Edit';
@@ -28,31 +30,50 @@ else
     closeBtn.classList.add('close');
     doneBtn.classList.add('done');
     editBtn.classList.add('editBtn');
-
-
+    
+    
     closeBtn.onclick=function()
+    {
+        todoCount--;
+        todo.remove();
+        
+document.querySelector('#undoneTodo').textContent=
+document.querySelectorAll('.todo.undone').length;
+ document.querySelector('#doneTodo').textContent=
+    document.querySelectorAll('.todo.doneTrue').length;
+
+    }
+    closeBtn.addEventListener('click',function()
 {
-    todo.remove();
+    document.querySelector('#allTodoNumber').textContent=todoCount;
 }
-    doneBtn.onclick=function() 
+);
+
+doneBtn.onclick=function() 
 {
     if(doneBtn.classList.contains('doneTrue'))
-    {
-        doneBtn.classList.remove('doneTrue')
+        {
+            doneBtn.classList.remove('doneTrue')
             todo.classList.add('undone');
             todo.classList.remove('doneTrue')
-
+            
     }
     else
     {
         todo.classList.add('doneTrue');
         todo.classList.remove('undone');
         doneBtn.classList.add('doneTrue'); 
-
     }
+    
+    
+    document.querySelector('#doneTodo').textContent=
+    document.querySelectorAll('.todo.doneTrue').length;
+    
+    document.querySelector('#undoneTodo').textContent=
+    document.querySelectorAll('.todo.undone').length;
 }
 
-    editBtn.onclick=function()
+editBtn.onclick=function()
 {
     const 
     save=document.createElement('button'),
@@ -66,11 +87,11 @@ else
     edit.classList.add('edit');
 
     edit.value=todo.firstChild.textContent;
-
+    
     save.textContent="save";
     cancel.textContent="cancel";
     
-
+    
     editDiv.appendChild(edit);
     editDiv.appendChild(cancel);
     editDiv.appendChild(save);
@@ -82,17 +103,20 @@ else
     }
     cancel.onclick=function()
     {
-            editDiv.remove();
+        editDiv.remove();
     }
 
     body.appendChild(editDiv);
-
+    
 }
 
-    todo.appendChild(editBtn);
-    todo.appendChild(doneBtn);
-    todo.appendChild(closeBtn);
-    todoList.prepend(todo);
+todo.appendChild(editBtn);
+todo.appendChild(doneBtn);
+todo.appendChild(closeBtn);
+todoList.prepend(todo);
+
+document.querySelector('#undoneTodo').textContent=
+document.querySelectorAll('.todo.undone').length;
 }
 }
 
@@ -130,31 +154,62 @@ filter.onclick=function()
         {
             
             divFilter.remove();
-            const doneTasks=document.querySelectorAll('.todo.doneTrue');
-            todoList.innerHTML='';
-            if(doneTasks.length===0)
+           
+            if(document.querySelectorAll('.doneTrue').length===0)
                 alert('no done task found');
-            doneTasks.forEach(task=>
-                {
-                        todoList.appendChild(task);
-                });
+            
+                document.querySelectorAll('.undone')
+                .forEach(task => task.classList.add('hide')); 
+                
+                document.querySelectorAll('.doneTrue')
+                .forEach(task => task.classList.remove('hide'));
+               
+                
             
             
         }
-        undone.onclick=function()
-        {
-            divFilter.remove();
-            const undoneTasks=document.querySelectorAll('.undone');
-            todoList.innerHTML='';
-            if(undoneTasks.length===0)
+       
+       undone.onclick = function () 
+       {
+        divFilter.remove();
+        
+        if(document.querySelectorAll('.undone').length===0)
                 alert('all tasks done');
-            
-            undoneTasks.forEach(task=>
-                {
-                        todoList.appendChild(task);
-                });
-            
-            
+        
+        document.querySelectorAll('.doneTrue')
+        .forEach(task => task.classList.add('hide'));
+
+        document.querySelectorAll('.undone')
+        .forEach(task => task.classList.remove('hide'));
+        };
+        allTasks.onclick=function()
+        {
+                    divFilter.remove();
+
+            document.querySelectorAll('.todo')
+            .forEach(task=>{task.classList.remove('hide')});
         }
     }
 }
+addTodo.addEventListener('click',function()
+{
+    if(task.value.trim()!=="")
+{
+
+    document.querySelector('#allTodoNumber').textContent=todoCount;
+}
+});
+
+const normalize = str => str.toLowerCase().replace(/\s+/g, '');
+
+search.addEventListener('input', function () {
+    const todos = document.querySelectorAll('.todo');
+    const value = normalize(search.value);
+
+    todos.forEach(todo => {
+        const text = normalize(todo.textContent);
+
+        const match = text.includes(value);
+        todo.classList.toggle('hide', !match);
+    });
+});

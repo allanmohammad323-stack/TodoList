@@ -1,19 +1,19 @@
-
 @keyframes disappear {
     from {
         opacity: 1;
-        
     }
     to {
         opacity: 0.05;
         pointer-events: none;
     }
 }
+
 body {
-margin: 0;
+    margin: 0;
     height: 100%;
 }
 
+/* SPLASH SCREEN (TOP LAYER) */
 .welcomeAnimation {
     position: fixed;
     inset: 0;
@@ -21,190 +21,248 @@ margin: 0;
     background-image: url("/images/welcomeimg.png");
     background-size: cover;
     background-position: center;
+
     animation: disappear 2s forwards;
 
-    z-index: 100;
+    z-index: 0;
+    pointer-events: none;
 }
 
+/* MAIN APP */
 .container {
     display: grid;
-    grid-template-columns:1fr;
-    grid-template-rows: repeat(1fr,1);
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(1fr, 1);
+
     position: relative;
     z-index: 1;
+
     padding: 5px;
+    width: 90%;
+
     justify-self: center;
     justify-content: center;
     justify-items: center;
+
     border-radius: 5px;
-    width: 90%;
 }
-.addTodo
-{
+
+/* ADD BUTTON */
+.addTodo {
     background-color: rgb(26, 141, 0);
     border: 0;
     padding: 5px;
     border-radius: 5px;
     color: white;
+
     justify-self: center;
-    justify-items: center;
     margin: 5px;
+    
+    width: 15%;
 }
-textarea
-{
+
+/* INPUT */
+textarea {
     width: 100%;
-    margin: 5px;
-    border: 0;
+margin-top: 5px;    border: 0;
     box-shadow: 0 0 10px black;
     overflow: initial;
     resize: none;
 }
-.todoList
-{
+
+/* TODO LIST */
+.todoList {
     display: grid;
-    grid-template-rows: repeat(1fr,1);
     grid-template-columns: 1fr;
+    grid-template-rows: repeat(1fr, 1);
+
     border: 3px black;
     height: 100%;
     width: 90%;
-    justify-self:center;
+
+    justify-self: center;
     justify-content: center;
     justify-items: left;
-    padding:5px ;
 
+    padding: 5px;
 
+    position: relative;
+    z-index: 1;
 }
-.close
-{
-background-color: red;
-border-radius: 5px;
-border: 0;
-box-shadow: 0 0 2px black;
-color: white;
-justify-self: right;
-position: flex;
-margin: 5px;
-}
-.done
-{
-background-color: rgb(255, 255, 255);
-border-radius: 5px;
-border: 0;
-box-shadow: 0 0 2px black;
-color: rgb(0, 0, 0);
-justify-self: right;
-position: flex;
-margin: 5px;
-}
-.editBtn
-{
-    
-background-color: rgb(0, 191, 255);
-border-radius: 5px;
-border: 0;
-box-shadow: 0 0 2px black;
-color: rgb(255, 255, 255);
-justify-self: right;
-position: flex;
-margin: 5px;
-}
-.doneTrue
-{
-    color: white;
-    background-color: green;
-    
-}
-.todo
-{
+
+/* TODO ITEM */
+.todo {
     display: grid;
-    grid-template-rows:1fr ;
-    grid-template-columns:1fr auto auto auto;
-    border:solid 1px black;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr auto auto auto;
+
+    border: solid 1px black;
     border-radius: 5px;
     box-shadow: 0 0 3px black;
+
     margin: 5px;
     padding: 5px;
+
     font-size: medium;
     width: 100%;
 }
-.editDiv
-{
+
+/* BUTTONS */
+.close,
+.done,
+.editBtn {
+    border-radius: 5px;
+    border: 0;
+    box-shadow: 0 0 2px black;
+
+    margin: 5px;
+    justify-self: right;
+}
+
+/* FIX INVALID position:flex (removed behavior change) */
+.close {
+    background-color: red;
+    color: white;
+}
+
+.done {
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+}
+
+.editBtn {
+    background-color: rgb(0, 191, 255);
+    color: rgb(255, 255, 255);
+}
+
+/* DONE STATE */
+.doneTrue {
+    color: white;
+    background-color: green;
+}
+
+/* EDIT MODAL (FIX OVERLAP) */
+.editDiv {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows:1fr auto ;
-    z-index:0;
-    width: 90%;
-    height: 50%;
-    box-shadow: 0px 0px 5px blue;
+    grid-template-rows: 1fr auto;
+
     position: fixed;
     top: 50%;
-    left: 50%;    
+    left: 50%;
     transform: translate(-50%, -50%);
-background-color: aquamarine;
-justify-content: center;
-justify-items: center;
-    padding: 5px;
-}
-.edit
-{
-    width: 95%;
-    height: 90%;
-    grid-column: 1/2 colomn;
-    margin: 5px;
-}
 
-.save
-{
-    background-color: rgb(0, 248, 37);
-border-radius: 5px;
-border: 0;
-box-shadow: 0 0 2px black;
-color: rgb(255, 255, 255);
+    width: 90%;
+    height: 50%;
+
+    background-color: aquamarine;
+    box-shadow: 0px 0px 5px blue;
 
     justify-content: center;
-    justify-self: center;
     justify-items: center;
+
+    padding: 5px;
+
+    z-index: 1000;
+}
+
+/* EDIT INPUT */
+.edit {
+    width: 95%;
+    height: 90%;
+    margin: 5px;
+    grid-column: 1 / 2 colomn;
+}
+
+/* SAVE */
+.save {
+    background-color: rgb(0, 248, 37);
+    border-radius: 5px;
+    border: 0;
+    box-shadow: 0 0 2px black;
+    color: rgb(255, 255, 255);
+
+    justify-self: center;
+
     margin: 0;
     padding: 5px;
 }
-.cancel
-{
-    background-color: rgb(255, 0, 0);
-border-radius: 5px;
-border: 0;
-box-shadow: 0 0 2px black;
-color: rgb(255, 255, 255);
 
-    justify-content: center;
+/* CANCEL */
+.cancel {
+    background-color: rgb(255, 0, 0);
+    border-radius: 5px;
+    border: 0;
+    box-shadow: 0 0 2px black;
+    color: rgb(255, 255, 255);
+
     justify-self: center;
-    justify-items: center;
-    margin:0;
+
+    margin: 0;
     padding: 5px;
 }
-.divFilter
-{
+
+/* FILTER MODAL (FIX OVERLAP) */
+.divFilter {
     display: grid;
     grid-template-columns: auto auto auto;
+
     position: fixed;
     top: 50%;
-    left:50%;
-        transform: translate(-50%, -50%);
-        background-color: aquamarine;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    background-color: aquamarine;
+
     height: 50%;
     width: 50%;
-   
+
+    z-index: 1000;
 }
 
-.fans
-{
-    height: 90%; 
-    width: 90%;  
+/* FANS (FIX STACKING) */
+.fans {
+    height: 90%;
+    width: 90%;
+
     justify-content: center;
     justify-self: center;
     justify-items: center;
+
     margin: 15px;
-    z-index: -1;
+
     background-color: blue;
     font-size: larger;
     color: white;
+
+    position: relative;
+    z-index: 0;
+}
+
+/* HIDE */
+.hide {
+    display: none;
+}
+.count
+{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin: 15px;
+    padding: 5px;
+    width: 90%;
+    text-align: center;
+}
+.count
+{
+    background-color: black;
+    color: white;
+    border-radius:5px;
+    box-shadow: 0 0 5px red;
+    width: 100%;
+}
+
+.search
+{
+    width: 99%;
+    justify-self: center;
 }
