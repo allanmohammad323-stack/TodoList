@@ -4,7 +4,7 @@ container=document.querySelector('#container'),
 addTodo =document.querySelector('#addTodo'),
 todoList=document.querySelector('#todoList'),
 task=document.querySelector('#task');
-let todoCount=0,doneCount=0,undoneCount=0;
+let todoCount=0;
 
 addTodo.onclick=function()
 {
@@ -75,6 +75,7 @@ doneBtn.onclick=function()
 
 editBtn.onclick=function()
 {
+    if(document.querySelector('.editDiv')) return;
     const 
     save=document.createElement('button'),
     cancel=document.createElement('button'),
